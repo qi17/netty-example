@@ -21,6 +21,7 @@
     <modules>
         <module>netty-demo-01</module>
         <module>itstack-demo-netty-2-02</module>
+        <module>wechat-netty</module>
     </modules>
 
     <dependencies>

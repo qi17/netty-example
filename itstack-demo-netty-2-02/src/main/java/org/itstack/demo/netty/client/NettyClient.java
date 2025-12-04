@@ -13,11 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
- * 虫洞栈：https://bugstack.cn
- * 公众号：bugstack虫洞栈  ｛获取学习源码｝
- * Create by fuzhengwei on 2019
- */
+
 public class NettyClient {
 
     public static void main(String[] args) {
@@ -33,7 +29,7 @@ public class NettyClient {
             b.option(ChannelOption.AUTO_READ, true);
             b.handler(new MyChannelInitializer());
             Channel channel = b.connect(inetHost, inetPort).sync().channel();
-            System.out.println("itstack-demo-netty client start done. {关注公众号：bugstack虫洞栈，获取源码}");
+            System.out.println("itstack-demo-netty client start done.");
 
             ChannelFuture lastFuture = null;
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));

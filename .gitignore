@@ -1,8 +1,45 @@
 HELP.md
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# Maven
 target/
-.mvn
+!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+# Gradle
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Spring Boot
+.spring-boot-wrapper/
 
 ### STS ###
 .apt_generated
@@ -15,10 +52,21 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
-.run
 *.iws
 *.iml
 *.ipr
+
+# Code specific
+atlassian-ide-plugin.xml
+
+# Cursive Clojure plugin
+.idea-cursive/
+
+# SonarLint plugin
+.idea/sonarlint/
+
+# Editor-based Rest Client
+.idea/httpRequests
 
 ### NetBeans ###
 /nbproject/private/
@@ -26,14 +74,50 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
 
-**/logs/**
-.flattened-pom.xml
-mvnw
-mvnw.cmd
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Environment variables
+.env
+.env.test
+.env.production
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Netty specific
+*.log.*
+netty_log*
+
+# Application specific
+flattened-pom.xml
