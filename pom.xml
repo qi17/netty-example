@@ -22,6 +22,7 @@
         <module>netty-demo-01</module>
         <module>itstack-demo-netty-2-02</module>
         <module>wechat-netty</module>
+        <module>rpc-demo-01</module>
     </modules>
 
     <dependencies>
