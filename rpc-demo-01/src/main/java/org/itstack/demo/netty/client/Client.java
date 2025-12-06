@@ -18,7 +18,7 @@ public class Client {
         ClientSocket client = new ClientSocket();
         new Thread(client).start();
 
-        while ( true){
+        while (true){
             try {
                 if ( null == future){
                     future = client.getFuture();

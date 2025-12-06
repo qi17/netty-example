@@ -6,6 +6,8 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
+import com.alibaba.fastjson.JSON;
+import org.itstack.demo.netty.codec.HeartbeatMessage;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,6 +37,7 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
                 ctx.writeAndFlush("全部时间：客户端你在吗{我结尾是一个换行符用于处理半包粘包}... ...\r\n");
             }
         }
+        ctx.flush();
 
     }
 
@@ -54,14 +57,36 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-//        System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " 接收到消息：" + msg);
-//        //通知客户端链消息发送成功
-//        String str = "服务端收到：" + new Date() + " " + msg + "\r\n";
-//        ctx.writeAndFlush(str);
+        String message = (String) msg;
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " 接收到消息：" + message);
+
+        // 检查是否是心跳消息
+        try {
+            // 尝试解析为心跳消息
+            HeartbeatMessage heartbeatMsg = JSON.parseObject(message, HeartbeatMessage.class);
+            if (heartbeatMsg != null && heartbeatMsg.getType() != null) {
+                System.out.println("接收到心跳消息：" + heartbeatMsg);
+
+                // 如果是PING消息，则回复PONG
+                if (heartbeatMsg.getType() == HeartbeatMessage.HeartbeatType.PING) {
+                    HeartbeatMessage pongMessage = new HeartbeatMessage(HeartbeatMessage.HeartbeatType.PONG);
+                    String pongJson = JSON.toJSONString(pongMessage);
+                    ctx.writeAndFlush(pongJson + "\r\n");
+                    System.out.println("发送心跳响应：" + pongMessage);
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            // 不是心跳消息，继续处理普通消息
+        }
+
+        // 处理普通消息
+        String str = "服务端收到：" + new Date() + " " + message + "\r\n";
+        ctx.writeAndFlush(str);
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         ctx.close();
         System.out.println("异常信息：\r\n" + cause.getMessage());
     }
